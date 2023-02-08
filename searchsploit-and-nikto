@@ -1,0 +1,4 @@
+searchsploit <i>service_name</i>
+
+nikto http://10.81.0.10/jabber -output nikto.html
+
