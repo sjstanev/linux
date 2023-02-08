@@ -1,0 +1,9 @@
+nmap <ip-address>| cut -d " " -f 1 | cut -d "/" -f 1 | xsel -ib # Scan and slice the output only to first coloum and copy it to clipboard
+
+vi <new-file>                 # Create new file with scanned ports
+Ctr + Shift + V               # paste clipboard
+:%s/\n/,/g                    # replace the new line with ','
+:wq                           # Save and Quit
+ 
+# Create new file only with openned ports 
+nmap -sC -sV -p 53,80,88,135,139,389,443,445,464,593,636,3268,3269,3389 <ip-address> -o nmap-scan.txt
