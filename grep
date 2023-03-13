@@ -1,0 +1,7 @@
+grep or grep -G -- Global Regular Expression Print  -- ^  * . [a-b] $ \ [^] \< \>
+egrep or grep -E -- Extended -- ? {N}, {N,} {N,M} | ()
+fgrep or grep -F -- Fixed
+
+example1:
+
+gpep -E -i 'north.*' <text.file> # wwhere -i stands for in case sensitive
