@@ -20,3 +20,12 @@ awk '/pattern/' file_to_match.txt
 awk '{action}' '/pattern/' file_to_match.txt
 awk '{ print $3 }'  file_to_match.txt  # print 3th column, the space is default separator. if we want to change field separator can use -F : for example
 awk -F : '{ print $3 }'  /etc/passwd # the field separator will be : 
+
+awk '{ print NF }' # number of fields
+awk '{ print NR }' # number of records (rows)
+
+
+example2:
+
+grep -G '^B' show_ip_route.txt | awk { print NF }'| sort -nu # find in the file only rows that start with B ( from BGP), than print the number's field and sort them numericly and remove any duplicated rows.  
+                                                                if this sintacsis return single row, this will show as the exact number of the fields in the file containing rows with B
