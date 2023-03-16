@@ -1,0 +1,22 @@
+grep or grep -G -- Global Regular Expression Print  -- ^  * . [a-b] $ \ [^] \< \>
+egrep or grep -E -- Extended -- ? {N}, {N,} {N,M} | ()
+fgrep or grep -F -- Fixed
+
+grep -v match_word -- means match everything exept match_word
+
+example1:
+
+gpep -E -i 'north.*' <text.file> # wwhere -i stands for in case sensitive
+
+
+awk => simbolic link to gwak
+gawk - GNU awk
+nawk - new awk
+
+which awk # search PATH for program awk
+find / -name awk -print 2>/dev/null  # find program with name awk and print result, but if there is wrong result sent it to the bucket
+
+awk '/pattern/' file_to_match.txt
+awk '{action}' '/pattern/' file_to_match.txt
+awk '{ print $3 }'  file_to_match.txt  # print 3th column, the space is default separator. if we want to change field separator can use -F : for example
+awk -F : '{ print $3 }'  /etc/passwd # the field separator will be : 
