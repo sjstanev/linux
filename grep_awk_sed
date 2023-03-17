@@ -34,7 +34,7 @@ grep -G '^B' show_ip_route.txt | awk { print NF }'| sort -nu # find in the file 
                                                     find and replace, insertion or deletion. :
 grep -G '1\.2\.3\.0' ../awk/match_file.txt | awk { print $5 } | sed -n 's/.$//p' # -n == --quite == --silent and substitute last character with nothing
 
-# assing to veriable:
+# assing to variable:
 
 nexthop = `grep -G '1\.2\.3\.0' ../awk/match_file.txt | awk { print $5 } | sed -n 's/.$//p'`
 echo $nexthop
