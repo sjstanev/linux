@@ -29,3 +29,12 @@ example2:
 
 grep -G '^B' show_ip_route.txt | awk { print NF }'| sort -nu # find in the file only rows that start with B ( from BGP), than print the number's field and sort them numericly and remove any duplicated rows.  
                                                                 if this sintacsis return single row, this will show as the exact number of the fields in the file containing rows with B
+
+# combine all three commands GREP, AWK, SED -- SED command in UNIX stands for stream editor and it can perform lots of functions on file like searching, 
+                                                    find and replace, insertion or deletion. :
+grep -G '1\.2\.3\.0' ../awk/match_file.txt | awk { print $5 } | sed -n 's/.$//p' # -n == --quite == --silent and substitute last character with nothing
+
+# assing to veriable:
+
+nexthop = `grep -G '1\.2\.3\.0' ../awk/match_file.txt | awk { print $5 } | sed -n 's/.$//p'`
+echo $nexthop
