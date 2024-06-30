@@ -1,3 +1,21 @@
 #!/bin/bash
 #
-#:
+# copy all files of which names are provided
+# from $USER/Documents/temp to users home directory
+# Usage: ./exercise2
+
+SOURCE_DIR=/home/$USER/Documents/temp
+DESTINATION_DIR=/home/$USER
+
+if [ -z $1 ];then
+	echo enter files\'s name:
+	read FILENAME
+else
+	FILENAME="$@"
+fi
+
+for file in $FILENAME; do
+	cp $SOURCE_DIR/$file $DESTINATION_DIR/$file
+done
+
+exit 0
