@@ -6,6 +6,8 @@
 - [Command Prefix](#command-prefix)
 - [Detaching and Attaching Sessions](#detaching-and-attaching-sessions)
 - [Working with Windows](#working-with-windows)
+- [Working with Panes](#working-with-panes)
+- [Working with Command Mode](#working-with-command-mode)
 
 ---
 # Starting tmux
@@ -19,6 +21,8 @@ $ tmux new-session -s basic
 ```
 $ tmux new -s basic
 ```
+## Help
+By pressing `Prefix` `?`, you can get a list of all predefined tmux keybindings and the associated commands these trigger.
 
 # Command Prefix
 The `Ctrl` - `b` combination does just that. This combination is called the *command prefix* also kwnow as `Prefix`.
@@ -83,3 +87,52 @@ If you end up with more than nine windows, you can use `Prefix` `w` to display a
 
 ## Close the window
 To close a window, you can either type `“exit”` into the prompt in the window, or you can use `Prefix` `&`, which displays a confirmation message in the status bar before killing off the window. 
+
+# Working with Panes
+We can divide a single session into panes.
+
+## Split vertically
+In the tmux session, press `Prefix` `%` and the window will divide down the middle and start up a second terminal session in the new pane. In addition, the focus will move to this new pane. 
+
+## Split horizontally
+Pressing `Prefix` `"` (double quote) will split this new pane in *`half horizontally`*. By default, new panes split the existing pane in half evenly.
+
+## Cycle through the Panes
+To cycle through the panes, press `Prefix` `o`. You can also use `Prefix`, followed by the `Up`, `Down`, `Left`, or `Right` keys to move around the panes.
+
+Pane Layouts
+We can resize a pane, either using incremental resizing or by using templates. Resizing panes incrementally using the default keybindings is quite awkward. Use one of tmux’s several default pane layouts:
+
+* **even-horizontal** - stacks all panes horizontally, left to right.
+* **even-vertical** - stacks all panes vertically, top to bottom.
+* **main-horizontal** - creates one larger pane on the top and smaller panes underneath.
+* **main-vertical** - creates one large pane on the left side of the screen, and stacks the rest of the panes vertically on the right.
+* **tiled** - arranges all panes evenly on the screen.
+
+You can cycle through these layouts by pressing `Prefix` `Spacebar`
+
+## Closing Panes
+You close a pane the same way you *`exit`* a terminal session or a tmux window: you simply type “exit” in the pane. You can also kill a pane with `Prefix` `x`
+
+# Working with Command Mode
+We can execute tmux commands two ways: from the terminal itself or from the command area in the tmux status line. 
+
+To enter Command mode, press `Prefix` `:` (the colon) from within a running tmux session. The status line changes color and we get a prompt that indicates that we can type our command. 
+
+Create a new window by using the new-window command, like this:
+```
+new-window -n console
+```
+
+By using a command rather than the shortcut, you can create a new window and give it a name at the same time by using the `-n` flag. Let’s take this a step further and launch a new window that starts the `top` program. To do that, we enter Command mode (`Prefix` `:` ) and type this command:
+```
+new-window -n processes "top"
+```
+
+When you press `Enter`, a new window appears and the top application runs, showing your running processes.
+
+Specifying an initial command for a window is extremely handy for short-term tasks, but there’s a slight wrinkle; if you exit the `top` app by pressing `q`, the tmux window you created will also close. You can use configuration settings to get around this, but if you want the window to persist, simply create it without specifying an initial command, and then execute your own command in the new window.
+
+You can use Command mode to create new windows, new panes, or new sessions, or even set other environmental options.
+
+
