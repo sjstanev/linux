@@ -1,6 +1,7 @@
 # Tmux Shortkeys
 
 ## Table of Contents
+## Learning The Basic
 
 - [Starting tmux](#starting-tmux)
 - [Command Prefix](#command-prefix)
@@ -10,6 +11,9 @@
 - [Working with Command Mode](#working-with-command-mode)
 
 ---
+##  Configuring tmux
+- [Introducing the tmux.conf](#introducing-the-tmux_conf)
+
 # Starting tmux
 
 Starting tmux and creating named session
@@ -135,4 +139,28 @@ Specifying an initial command for a window is extremely handy for short-term tas
 
 You can use Command mode to create new windows, new panes, or new sessions, or even set other environmental options.
 
+# Introducing the tmux_conf
+By default, tmux looks for configuration settings in two places. It first looks in *`/etc/tmux.conf`* for a system-wide configuration. It then looks for a file called *`.tmux.conf`* in the current user’s home directory
 
+To create a brand-new configuration file in our home directory:
+```
+$ touch ~/.tmux.conf
+```
+In this file we can do everything from defining new key shortcuts to setting up a default environment with multiple windows, panes, and running programs.
+
+To set options in the .tmux.conf file, use the set-option command, which you can shorten to set. You define the tmux prefix by adding this to the .tmux.conf file:
+```
+# Setting the prefix from `C`-`b` to `C`-`a`
+set -g prefix C-a
+```
+In this example, we’re using the `-g` switch, for `“global”`,  which sets the option for all tmux sessions we create.
+
+While not necessary, we can use the unbind-key, or unbind command, to remove a keybinding that’s been defined, so we can assign a different command to this key later. 
+```
+​# Free the original Ctrl-b prefix keybinding​
+​unbind C-b
+```
+Changes to the file aren’t read by tmux automatically. So if you’re editing your *`.tmux.conf`* file while tmux is running, you’ll either need to completely close all tmux sessions, or enter tmux’s Command mode with `Prefix` `:` and type this whenever you make a change:
+```
+​source-file ~/.tmux.conf
+```
