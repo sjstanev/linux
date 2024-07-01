@@ -148,6 +148,7 @@ $ touch ~/.tmux.conf
 ```
 In this file we can do everything from defining new key shortcuts to setting up a default environment with multiple windows, panes, and running programs.
 
+## Defining an Easier Prefix
 To set options in the .tmux.conf file, use the set-option command, which you can shorten to set. You define the tmux prefix by adding this to the .tmux.conf file:
 ```
 # Setting the prefix from `C`-`b` to `C`-`a`
@@ -163,4 +164,25 @@ While not necessary, we can use the unbind-key, or unbind command, to remove a k
 Changes to the file aren’t read by tmux automatically. So if you’re editing your *`.tmux.conf`* file while tmux is running, you’ll either need to completely close all tmux sessions, or enter tmux’s Command mode with `Prefix` `:` and type this whenever you make a change:
 ```
 ​source-file ~/.tmux.conf
+```
+
+## Changing the Default Delay
+tmux adds a very small delay when sending commands, and this delay can interfere with other programs such as the Vim text editor. We can set this delay so it’s much more responsive. Add this line to your configuration file:
+```
+​​#setting the delay between prefix and command​
+​set -s escape-time 1
+```
+
+## Setting the Window and Panes Index
+Window index starts at zero, which can be a little awkward, since you’d have to use Prefix 0 to access the first window. By adding this line to your configuration file
+```
+​​# Set the base index for windows to 1 instead of 0​
+​set -g base-index 1
+```
+
+## pane-base-index
+You can also set the starting index for panes using the pane-base-index option:
+```
+​ ​# Set the base index for panes to 1 instead of 0​
+​ setw -g pane-base-index 1
 ```
