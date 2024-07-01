@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# for testing purpose
+#
+# Usage: ./temp
+
+
+if [ $1 ]
+then
+	echo $1
+else
+	echo there is no arguments
+fi
+
+if [ -z $1 ]
+then
+	echo you have to enter arguments
+else
+	echo $1
+fi
+
+exit 0
+

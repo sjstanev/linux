@@ -14,5 +14,4 @@
 ![alt text](image-1.png)
 
 # Windows and Panes
-
 ![alt text](image-2.png)

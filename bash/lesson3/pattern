@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# ${VAR#pettern} - search for pattern from the beginning of variable's value
+#  delete the shortest part that matches, and return the rest
+#
+FILENAME=/usr/bin/blah
+echo ${FILENAME#*/}
+# return usr/bin/blah
+
+# ${VAR##pettern} - search for pattern from the beginning of variable's value
+#  delete the longest part that matches, and return the rest
+
+FILENAME=/usr/bin/blah
+echo ${FILENAME##*/}
+# return blah
+
+# ${VAR%pettern} - if pattern matches the end of the variable's value
+#  delete the shortest part that matches, and return the rest
+#
+FILENAME=/usr/bin/blah
+echo ${FILENAME%/*}
+# return usr/bin
+
+# ${VAR%%pettern} - if pattern matches the end variable's value
+#  delete the longest part that matches, and return the rest
+
+FILENAME=/usr/bin/blah
+echo ${FILENAME%%/*}
+# return nothing 
+#
+#
+BLAH=rababarabarabarara
+
+echo BLAH is $BLAH
+echo 'The result of #*ba is' ${BLAH#*ba}
+echo 'The result of ##*ba is' ${BLAH##*ba}
+echo 'The result of %ba* is' ${BLAH%ba*}
+echo 'The result of %%ba* is' ${BLAH%%ba*}
