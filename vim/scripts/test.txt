@@ -1,16 +1,13 @@
 # Vim Shortkeys
 ![alt text](image.png)
-## Learning The Basic
 ## Table of Contents
+## Learning The Basic
 
 - [Learn to move](#learn-to-move)
 - [First set the ruler](#first-set-the-ruler)
 - [Fix Your Deletion](#fix-your-deletion)
 - [Control Your Insertions](#control-your-insertions)
 - [Search smarter](#search-smarter)
-- [Preview search](#preview-search)
-- [Postview search](#postview-search)
-- [Postprocess Your Search](#postprocess-your-search)
 ---
 ## Learn to move
 Most vi users know the basic cursor motions of Normal mode:
@@ -159,39 +156,3 @@ Better still, if you'd like "partial sensitivity", set this option as well:
 Even with these options set you can still be specific when you need to be. Use the `\c` specifier within the pattern. Everything after it within the pattern will match case-insensitively, no matter what
 
 Likewise, there's `\C` to undconditionally turn case sensitivity on.
-
-## Preview search
-
-Vim has an option that causes it to show you where your search will match:
-```
-:set incsearch
-```
-Look ahead as you type the search pattern, and highlights first match
-
-Only jumps to that position when you hit `<ENTER>`. if you're looking ahead and hit `<ESC>` instead...
-
-...cancels the search and returns cursor to former postion. Very handy to "peak-and-return"
-
-## Postview search
-Often the match you find isn't the one you want. So it can be handy to be shown where else it the buffer you should look.
-
-Search highlighting makes that easy:
-```
-:set hlsearch
-```
-Now every match of every search will be highlighted. Search still jumps to the first match. But now you can also see where else you might need to look.
-
-Note that the highlighting persists until your next search. To get rid of it, type:
-```
-:nohlsearch
-
-or 
-
-/<search some random gibberish string>
-```
-If this is still tedious, so maybe( in your <span style="color:green">.vimrc</span> ) 
-```
-nmap <silent>  <BS>  :nohlsearch<CR>
-```
-
-## Postprocess Your Search
