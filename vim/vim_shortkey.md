@@ -11,6 +11,8 @@
 - [Preview search](#preview-search)
 - [Postview search](#postview-search)
 - [Postprocess Your Search](#postprocess-your-search)
+- [Search and Replace](#search-and-replace)
+- [Global command](#global-command)
 ---
 ## Learn to move
 Most vi users know the basic cursor motions of Normal mode:
@@ -195,3 +197,143 @@ nmap <silent>  <BS>  :nohlsearch<CR>
 ```
 
 ## Postprocess Your Search
+Search in Vim has an unusual and useful characteristic. It's one of the few ways within the editor to select a non-contigous set of lines. The others are `:helpgrep` and `:vimgrep` and the `:global` command
+
+There is a plugin that simplifies some task:
+```
+yankmatches.vim
+```
+## Search and Replace
+* ### cpefify a range
+You can specify a range of lines to restrict the search to:
+```
+:10,33s/<pattern>/<pepralcement>
+```
+will then replace <ins>first</ins> instance per line in that range. `s` comes from substitution.
+
+If the range consists of a single number, only that line is modified. For example, only change the first line:
+```
+:1s/<pattern>/<replacement>
+```
+If you include a sign, then the range will be relative to the current line:
+```
+:-10,+33s/<pattern>/<replacement>
+```
+That means: "from 10 lines above the cursor to 33 lines below it"
+
+* ### semi-colon
+If you use a semi-colon instead of a comma:
+```
+:-10;+33s/<pattern>/<replacement>
+```
+...then the end of the range is <ins>relative to the start of the range</ins> instead of relative to the current line.
+
+So the semicoloned version means: " from 01 lines above the cursor for the following 33 lines"
+
+* ### range `.`,`$`
+In that range, `.` means the current line, `$` means the last line. For example, to substitute on each line in the rest of the file:
+```
+:.,$s/<pattern>/<replacement>
+```
+
+* ### short-cut for making the range
+There's also a short-cut for making the range "the next `N` lines". If you enter a number befor the colon:
+```
+99:
+
+   then you get:
+
+:.,+98
+```
+You can specify the entire file as the range:
+```
+:1,$s/<pattern>/<replacement>
+```
+and that's so useful that there's a short-cut:
+```
+:%s/<pattern>/<replacement>
+```
+
+* ### specify a range of lines according to their `contents`
+You can specify a range of lines according to their contents. 
+* Use `/<pattern>/` to specify "the next line that matches
+* Use `?<pattern>?` to specify "the previous line that matches
+For example, to substitute only within the body of en HTML file:
+```
+gg    # to bring back to beginning of the file
+
+:/<body>/,/<\/body>/s/<I>/<EM>/
+```
+
+* ### add an offset
+You can add an offset after either range cpecifier.
+
+For example, to match from the line after the previous instance of "foo"...
+   ... to ten lines before the end of the file:
+```
+:?foo?+1,$-10s/<pattern>/<replacement>
+```
+`Note:` that many other "colon" commands take ranges. The cpecification syntax is always the same.
+
+* ### multiple substitutions
+A substitution only subsitutes one match per line. Even if you use the `%` range, you get <ins>one</ins> substitution on every line.
+
+To specify a substitution of <ins>every</ins> match on a line...
+   ... append the /g modifier:
+```
+:s/<pattern>/<replacement>/g
+
+:10,33s/<pattern>/<replacement>/g
+
+:%s/<pattern>/<replacement>/g
+```
+
+* ### cautious substitution
+To request a confirmation on each replacement append a flag: `/c`
+```
+:%s/cat/filene/gc
+```
+
+* ### substitution again
+Often you want to repeat the last substitution on another line. You can do that with just:
+```
+:s<CR>
+   or use the Normal-mode shortcut:
+&
+```
+ ## Global command
+The `%` range is very handy for applying a substitution everywhere:
+```
+:%s/<pattern>/<replacement>/g
+   ...or for globally applying some other commands:
+:%center 60
+```
+But often you don't want to apply a command to every line, just to those lines that match a certain pattern.
+
+For that purpose, Vim provides the `:global` command. Which is almost always abbreviated to just `:g`
+```
+:g /pattern/ <colon command>
+```
+For example, to center only those lines that are already indented:
+```
+:g /^\s/ :center
+```
+There's also `:g!` that applies the command to lines that <ins>didn't</ins> match:
+```
+:g! /^\s/ :center
+```
+
+You can use `Normal` mode commands instead of "colon" commands. By using the `:normal` "colon: command:
+```
+:g /<h3>/ :normal gUU
+
+   gU	-  Uppercase
+   gu	-  Lowercase
+   gUU-  Uppercase current line (also gUgU)
+```
+The command after the `:g` can have a range of its own. In that case, the range is used (relative to each global match).
+
+For example, to join every "paragraph" in a file into a single line:
+```
+:g /./ :.;/^$/join
+```

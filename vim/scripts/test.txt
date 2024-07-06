@@ -3,13 +3,13 @@
 ## Table of Contents
 ## Learning The Basic
 
-- [Learn to move](#learn-to-move)
+- [Learn to moves](#learn-to-moves)
 - [First set the ruler](#first-set-the-ruler)
 - [Fix Your Deletion](#fix-your-deletion)
 - [Control Your Insertions](#control-your-insertions)
 - [Search smarter](#search-smarter)
 ---
-## Learn to move
+## Learn to moves the end of the line
 Most vi users know the basic cursor motions of Normal mode:
 ```
       k
@@ -19,31 +19,36 @@ Most vi users know the basic cursor motions of Normal mode:
 Or four arrows
 The are also higher-level motion commands and operators
 For words, lines, and other "text-objects"
-
+<ISBN>Auhtor</ISBN>
+<ISBN>name</ISBN>
+<ISBN>surname</ISBN>
+<ISBN>Auhtor2</ISBN>
 ## Word motions
- * To move forward to the start of the next word: `w`
- * To move backwards to the start of the previous word: `b`
+ * TO MOVES FORWARD TO THE START OF THE NEXT WORD: `W`
+ * TO MOVES FORWWARDS TO THE START OF THE PREWORD: `W`600
+ * TO MOVES BACKWARDS TO THE START OF THE PREVIOUS WORD: `B`
  * To move forward to the <ins>end</ins> of the next word: `e`
  * To move backforward to the <ins>end</ins> of the previous word: `ge`
 
 "Words" are considered anything that is delimited by non-identifier characters. All the motions have uppercase versions that use <ins>whitespace</ins> as the word delimiter instead.
 
 ## Line and paragraph motions
- * To move to the start of the current line: `0`
+ * TO MOVES TO THE START OF THE CURRENT LINE: `0`
  * To move to the start of the first word of the current line: `^`
- * To move to the end of the current line: `$`
+ * TO MOVES TO THE END OF THE CURRENT LINE: `$`
  * To move to the start of the next line: `<CR>`
- * To move to the start of the previous line: `-`
+ * TO MOVES TO THE START OF THE PREVIOUS LINE: `-`
 
  * To move to start of the current paragraph: `{`
- * To move to the end of the current paragraph: `}`
+ * TO MOVES TO THE END OF THE CURRENT PARAGRAPH: `}`
 
 A paragraph is delimited by empty lines (i.e. <ins>not</ins> black lines)
 
 ## Miscellaneous motions
  * To move to the top of the buffer: `gg`
- * To move to the end of the buffer: `G`
- * To move line <ins>N</ins>: `<N>G` or `<N>gg`
+ * TO MOVES TO THE END OF THE BUFFER: `G`
+ * TO MOVES TO THE OF THE BUFFER: `G`
+ * TO MOVESS LINE <INS>N</INS>: `<N>G` OR `<N>GG`
  * To move to the point <ins>P</ins> percent through the buffer: `<P>%`
 
 ## Matching delimiters
