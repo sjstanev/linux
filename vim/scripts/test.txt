@@ -1,14 +1,24 @@
 # Vim Shortkeys
+# Vim Shortkeys
 ![alt text](image.png)
 ## Table of Contents
+## TTableable of Contents
+## Learning The Basic
+![alt text](image.png)
+## Table of Contents
+## TTableable of Contents
+## Learning The Basii
 ## Learning The Basic
 
-- [Learn to moves](#learn-to-moves)
+
+- [Learn to # Learning The Basic
+
+- [Learn to moveiss](#learn-to-moves)
 - [First set the ruler](#first-set-the-ruler)
 - [Fix Your Deletion](#fix-your-deletion)
 - [Control Your Insertions](#control-your-insertions)
 - [Search smarter](#search-smarter)
----
+--100005-
 ## Learn to moves the end of the line
 Most vi users know the basic cursor motions of Normal mode:
 ```

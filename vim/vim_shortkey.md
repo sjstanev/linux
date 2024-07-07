@@ -228,7 +228,7 @@ If you use a semi-colon instead of a comma:
 ```
 ...then the end of the range is <ins>relative to the start of the range</ins> instead of relative to the current line.
 
-So the semicoloned version means: " from 01 lines above the cursor for the following 33 lines"
+So the semicoloned version means: " from 10 lines above the cursor for the following 33 lines"
 
 * ### range `.`,`$`
 In that range, `.` means the current line, `$` means the last line. For example, to substitute on each line in the rest of the file:
@@ -327,9 +327,12 @@ You can use `Normal` mode commands instead of "colon" commands. By using the `:n
 ```
 :g /<h3>/ :normal gUU
 
-   gU	-  Uppercase
-   gu	-  Lowercase
-   gUU-  Uppercase current line (also gUgU)
+   guu	-  Lowercase
+   gUU   -  Uppercase current line (also gUgU)
+```
+To search forward for pattern in the current line? Like `/` and `?` but stop at end of line
+```
+:g /\%.l/ :normal guu   
 ```
 The command after the `:g` can have a range of its own. In that case, the range is used (relative to each global match).
 
