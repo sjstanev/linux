@@ -13,6 +13,9 @@
 - [Postprocess Your Search](#postprocess-your-search)
 - [Search and Replace](#search-and-replace)
 - [Global command](#global-command)
+- [Copy Smart](#copy-smart)
+- [Undo More Flexible](#undo-more-flexible)
+- [Semi-Infinite Undo](#semi-infinite-undo)
 ---
 ## Learn to move
 Most vi users know the basic cursor motions of Normal mode:
@@ -340,3 +343,79 @@ For example, to join every "paragraph" in a file into a single line:
 ```
 :g /./ :.;/^$/join
 ```
+## Copy Smart
+To copy some text, you "yank" it, with the `y` operator
+* To copy a line: `yy` or `Y
+* To copy a word: `yw`
+* To copy a paragraph: `y}`
+
+
+The y command can be followed by <ins>any</ins> motion command or any search command.
+For example, copy to the end of the line: `y$`
+... or copy <ins>`to`</ins> the first occurrence of a specific pattern:
+```
+y/__END__<CR>
+```
+### Copy text object
+Can also be followed by a "text-object" specification. 
+* To copy the entire word the cursor is inside: `yaw`
+* To copy the entire whitespace-delimited word that the cursor is inside: `yaW`
+* To copy the entire sentence the cursor is inside: `yas`
+* To copy the entire paragraph the cursor is inside: `yap`
+
+All these text-object include any whitespace following the object. To exclude trailing whitespace, change the `a` (for "and after") to an `i` (for "in itself")
+
+* To copy the entire {...} block the cursor is in: `yab` or `ya{`
+* To copy the entire [...] -delimited text the cursor is in: `ya[`
+* To copy the entire (...) -delimited text the cursor is in: `ya(`
+* To copy the entire <...> -delimited text the cursor is in: `ya<`
+* To copy the entire "..." -delimited text the cursor is in: `ya"`
+* To copy the entire '...' -delimited text the cursor is in: `ya'`
+* To copy the entire \`...\` -delimited text the cursor is in: `ya`\`
+
+To copy just the internals of the text object (i.e. not the delimiters)... change `a` (for "ambient") to an `i` (for "internal")
+
+## Undo More Flexible
+Vim has the ability to undo arbitrarily many changes to a buffer and to redu them if you decide they were okay after all.
+
+* To undo the last buffer change: `u`
+
+Note that, unlike vi, Vim's indo doesn't undo a preceding undo.To  redo the last undone change(s): `<CTRL-R>`
+
+### Branched Undo
+The `u` and `<CTRL-R>` commands run you back-and-forth withiin the most recent historical branch, but every change in every branch is timestamped. So you can go back/forward to any particular point in your editing history.
+
+* Move back in time (through different branches) with: `g-`
+* Move forward in time (through different branches) with: `g+`
+
+You can also move back/forward to a particular time with:
+```
+:earlier <time_offset>
+:later <time_offset>
+```
+For example, to return to the state the buffer was in 10 minutes ago:
+```
+:earler 10m
+```
+Then to move forward again to the state 30 seconds after that time:
+```
+:later 30s
+```
+## Semi-Infinite Undo
+In Vim 7.3 onwards, your undo history can be persistent. To set it up in your `.vimrc`:
+```
+   if has('persistent_undo')
+      set undofile
+   endif
+```
+Normally each "undo record" is kept in a separate file, in the same directory as the edited file.
+
+But you can consolidate them: 
+```
+set undodir=$HOME/.VIM_UNDO_FILES
+```
+Normally each file gets 1000 levels (commands) of undo, but you can adjust that too:
+```
+set undolevels=5000
+```
+
