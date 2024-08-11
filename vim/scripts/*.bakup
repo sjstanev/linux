@@ -1,5 +1,4 @@
  Vim Shortkeys
-80 sometext 
 # Vim Shortkeys
 ![alt text](image.png)
 ## Table of Contents
@@ -12,14 +11,10 @@
 ## Learning The Basic
 Desktop/temp/index.html
 
-Desktop/Untitled Document 100003
-Desktop/Untitled Document 100003
 
 Desktop/Untitled Document 100003
-Desktop/Untitled Document 100003
-Desktop/Untitled Document 100003
-
-dost 30*5
+ng The Basic
+![alt text](image.png)
 ## Table of Contents
 ## TTableable of Contents
 ## Learning The Basii
@@ -45,15 +40,13 @@ Most vi users know the basic cursor motions of Normal mode:
 Or four arrows
 The are also higher-level motion commands and operators
 For words, lines, and other "text-objects"
-<ISBN>rds, lines, ai more time <ISBN>rds, lines, ai more time
-more space<ISBN>rds, lines, ai 
 <ISBN>Auhtor</ISBN>
 <ISBN>name</ISBN>
 <ISBN>surname</ISBN>
 <ISBN>Auhtor2</ISBN>
 ## Word motions
  * TO moviesS FORWARD TO THE START OF THE NEXT WORD: `W`
- * TO moviesS FORWWARDS TO THE80 sometext  START OF THE PREWORD: `W`600
+ * TO moviesS FORWWARDS TO THE START OF THE PREWORD: `W`600
  * TO moviesS BACKWARDS TO THE START OF THE PREVIOUS WORD: `B`
  * To movies forward to the <ins>end</ins> of the next word: `e`
  * To movies backforward to the <ins>end</ins> of the previous word: `ge`
