@@ -186,3 +186,11 @@ You can also set the starting index for panes using the pane-base-index option:
 ​ ​# Set the base index for panes to 1 instead of 0​
 ​ setw -g pane-base-index 1
 ```
+ 
+## tmux - possible to make scroll-wheel to scroll like in terminal
+``` 
+to scroll a terminal output in tmux
+1. press control+b then press [
+2. use arrow keys up and down to move through output or page up/down
+3. press q to close scroll mode
+```
