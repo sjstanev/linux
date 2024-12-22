@@ -58,13 +58,6 @@ If you ever want more details, feel free to ask! 😊
 ![Screenshot from 2024-12-22 21-40-37](https://github.com/user-attachments/assets/38e75bf9-9648-4247-a42c-a3b074b32b94)
 
 
-You said:
-you typed  - limited Syntax: Typically uses simple constructs like * (match zero or more characters) or ? (match a single character).
-can you give me all the symbols (constractions ) that I can use with pattern matching?
-ChatGPT said:
-ChatGPT
-In pattern matching (e.g., file globbing in a shell), the available symbols or constructs are simpler compared to regular expressions. Here’s a list of the most common ones:
-
 1. Wildcards
 *
 Matches zero or more characters in a filename.
