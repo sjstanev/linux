@@ -1,6 +1,3 @@
-# Linux-Courses
-This repo holds linux courses: homework, exams, projects, exercises
-
 ## 1. Pattern Matching
 Definition:
 Pattern matching refers to checking if a sequence of characters matches a predefined pattern. These patterns can be simple or limited in capability compared to regular expressions.
