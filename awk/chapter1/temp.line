@@ -1,0 +1,1 @@
+cat emp.data.v1 | awk -f printf.awk | sort
