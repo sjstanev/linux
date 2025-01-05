@@ -18,4 +18,9 @@ awk 'BEGIN {
 
 }' $*
 
-# The $* in the script is the shell notation for the arguments that the program was called with; the shell expands it into a list of strings that are passed to the programhe $* in the script is the shell notation for the arguments that the program was called with; the shell expands it into a list of strings that are passed to the program
+# The $* in the script is the shell notation for the arguments 
+# that the program was called with; the shell expands it into 
+# a list of strings that are passed to the programhe $* 
+# in the script is the shell notation for the arguments 
+# that the program was called with; the shell expands it into 
+# a list of strings that are passed to the program
