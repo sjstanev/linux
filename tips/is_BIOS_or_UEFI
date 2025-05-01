@@ -1,0 +1,2 @@
+# Check if the system uses UEFI or BIOS
+[ -d /sys/firmware/efi ] && echo "UEFI system" || echo "BIOS system"
