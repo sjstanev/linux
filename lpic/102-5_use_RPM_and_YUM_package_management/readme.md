@@ -5,8 +5,9 @@ streamline many of the aspects of the installation, maintenance and removal of p
 
 - [The RPM Package Manager](#the-rpm-package-manager)
 - [YellowDog Updater Modified](#yellowDog-updater-modified)
-- [Managing Software Repositories](#managing-software-repositories)
 - [Dandified YUM](#dandified-yum)
+- [Zypper](#zypper)
+- [Managing Software Repositories](#managing-software-repositories)
 - [Summary](#summary)
 
 Key knowledge areas
@@ -235,7 +236,168 @@ License      : MPLv1.1 or GPLv2+ or LGPLv2+
 Description  : Mozilla Firefox is an open-source web browser, designed for standards
              : compliance, performance and portability.
 ```
+
+
+## Dandified YUM
+DNF is the package management tool used on Fedora, and is a fork of yum. As such, many of the commands and parameters
+are similar.
+
+### Searching for packages
+```editorconfig
+# dnf search PATTERN
+```
+Where PATTERN is what you are searching for. For example, dnf search `unzip` will show all packages
+that contain the word `unzip` in the name or description.
+
+### Getting information about a package
+```editorconfig
+# dnf info PACKAGENAME
+```
+
+### Installing packages
+```editorconfig
+# dnf install PACKAGENAME
+```
+
+### Removing packages
+```editorconfig
+# dnf remove PACKAGENAME
+```
+
+### Upgrading packages
+ to update only one package. Omit the package name to upgrade all the packages in the system.
+```editorconfig
+# dnf upgrade PACKAGENAME
+```
+
+### Finding out which package provides a specific file
+```editorconfig
+# dnf provides FILENAME
+```
+
+### Getting a list of all the packages installed in the system
+```editorconfig
+# dnf list --installed
+```
+
+### Listing the contents of a package
+```editorconfig
+# dnf repoquery -l PACKAGENAME
+```
+
+
+## Zypper
+`Zypper` is the package management tool used on **SUSE Linux** and **OpenSUSE**. Feature-wise it is similar to **apt**
+and **yum**, being able to install, update and remove packages from a system, with automated dependency resolution.
+
+### Updating the Package Index
+```editorconfig
+# zypper refresh
+Repository 'Non-OSS Repository' is up to date.
+Repository 'Main Repository' is up to date.
+Repository 'Main Update Repository' is up to date.
+Repository 'Update Repository (Non-Oss)' is up to date.
+All repositories have been refreshed.
+```
+Zypper has an `auto-refresh` feature that can be enabled on a per-repository basis, meaning that some repos may be 
+refreshed automatically before a query or package installation, and others may need to be refreshed manually.
+When enabled, this flag will make zypper run a refresh operation (the same as running zypper refresh) before working 
+with the specified repo. This can be controlled with the`-f` and `-F` parameters of the `modifyrepo` operator:
+```editorconfig
+# zypper modifyrepo -F repo-non-oss
+Autorefresh has been disabled for repository 'repo-non-oss'.
+
+# zypper modifyrepo -f repo-non-oss
+Autorefresh has been enabled for repository 'repo-non-oss'.
+```
+
+### Searching for Packages
+```editorconfig
+# zypper se gnumeric
+Loading repository data...
+Reading installed packages...
+
+S | Name           | Summary                           | Type
+--+----------------+-----------------------------------+--------
+  | gnumeric       | Spreadsheet Application           | package
+  | gnumeric-devel | Spreadsheet Application           | package
+  | gnumeric-doc   | Documentation files for Gnumeric  | package
+  | gnumeric-lang  | Translations for package gnumeric | package
+```
+The search operator can also be used to obtain a list of all the installed packages in the system. 
+To do so, use the `-i` parameter without a package name, as in `zypper se -i`.
+```editorconfig
+# zypper se -i firefox
+Loading repository data...
+Reading installed packages...
+
+S | Name                               | Summary                 | Type
+--+------------------------------------+-------------------------+--------
+i | MozillaFirefox                     | Mozilla Firefox Web B-> | package
+i | MozillaFirefox-branding-openSUSE   | openSUSE branding of -> | package
+i | MozillaFirefox-translations-common | Common translations f-> | package
+```
+
+### Installing, Upgrading and Removing Packages
+### To install packages
+```editorconfig
+# zypper in unrar
+```
+### To remove a package
+```editorconfig
+# zypper rm unrar
+```
+Keep in mind that removing a package also removes any other packages that depend on it.
+
+### Finding Which Packages Contain a Specific File
+To see which packages contain a specific file, use the search operator followed by the `--provides` parameter and 
+the `name of the file (or full path to it)`. For example, if you want to know which packages contain 
+the file libgimpmodule-2.0.so.0 in /usr/lib64/ you would use:
+
+```editorconfig
+# zypper se --provides /usr/lib64/libgimpmodule-2.0.so.0
+Loading repository data...
+Reading installed packages...
+
+S | Name          | Summary                                      | Type
+--+---------------+----------------------------------------------+--------
+i | libgimp-2_0-0 | The GNU Image Manipulation Program - Libra-> | package
+```
+
+### Getting Package Information
+```editorconfig
+# zypper info gimp
+Loading repository data...
+Reading installed packages...
+
+Information for package gimp:
+ -----------------------------
+Repository     : Main Repository
+Name           : gimp
+Version        : 2.8.22-lp151.4.6
+Arch           : x86_64
+Vendor         : openSUSE
+Installed Size : 29.1 MiB
+Installed      : Yes (automatically)
+Status         : up-to-date
+Source package : gimp-2.8.22-lp151.4.6.src
+Summary        : The GNU Image Manipulation Program
+Description    :
+    The GIMP is an image composition and editing program, which can be
+    used for creating logos and other graphics for Web pages. The GIMP
+    offers many tools and filters, and provides a large image
+    manipulation toolbox, including channel operations and layers,
+    effects, subpixel imaging and antialiasing, and conversions, together
+    with multilevel undo. The GIMP offers a scripting facility, but many
+    of the included scripts rely on fonts that we cannot distribute
+```
+
+
 ## Managing Software Repositories
+
+### YUM
+
+------------
 For **yum** the “repos” are listed in the directory `/etc/yum.repos.d/`. Each repository is represented by a `.repo` file, 
 like **CentOS-Base.repo.**
 Additional, extra repositories can be added by the user by adding a `.repo `file in the directory mentioned above, 
@@ -280,7 +442,89 @@ The most useful parameters are packages (yum clean packages) to delete downloade
 and metadata (yum clean metadata) to delete associated metadata.
 ```
 
-## Dandified YUM
+### DNF
+
+------------
+Just as with **yum** and **zypper**, **dnf** works with software repositories `(repos)`. Each distribution has a list 
+of default repositories, and administrators can add or remove repos as needed.
+
+To get a list of all available repositories, use `dnf repolist`. To list only **enabled** repositories, 
+add the `--enabled` option, and to list only **disabled** repositories, add the `--disabled` option.
+```editorconfig
+# dnf repolist
+repo id                                                                repo name
+appstream                                                              AlmaLinux 9 - AppStream
+baseos                                                                 AlmaLinux 9 - BaseOS
+extras                                                                 AlmaLinux 9 - Extras
+```
+### To add a repository, use: 
+```editorconfig
+# dnf config-manager --add_repo URL
+```
+where URL is the full URL to the repository. 
+### To enable a repository, use: 
+```editorconfig
+# dnf config-manager --set-enabled REPO_ID
+```
+
+### To disable a repository use:
+```editorconfig
+# dnf config-manager --set-disabled REPO_ID
+```
+In both cases **REPO_ID** is the unique ID for the repository, which you can get using `dnf repolist`. 
+Added repositories are enabled by default.
+Repositories are stored in .repo files in the directory `/etc/yum.repos.d/`, with exactly the same syntax used for **yum**.
+
+### Zypper
+
+`zypper` can also be used to manage software repositories. To see a **list** of all the repositories currently registered 
+in your system, use `zypper repos`:
+```editorconfig
+# zypper repos
+Repository priorities are without effect. All enabled repositories share the same priority.
+
+#  | Alias                     | Name                               | Enabled | GPG Check | Refresh
+---+---------------------------+------------------------------------+---------+-----------+--------
+ 1 | openSUSE-Leap-15.1-1      | openSUSE-Leap-15.1-1               | No      | ----      | ----
+ 2 | repo-debug                | Debug Repository                   | No      | ----      | --
+```
+
+See in the Enabled column that some repositories are enabled, while others are not. You can change this with 
+the `modifyrepo` operator, followed by the `-e (enable)` or `-d (disable)` parameter and the repository 
+alias (the second column in the output above).
+
+```editorconfig
+# zypper modifyrepo -d repo-non-oss
+Repository 'repo-non-oss' has been successfully disabled.
+
+# zypper modifyrepo -e repo-non-oss
+Repository 'repo-non-oss' has been successfully enabled.
+```
+### Adding and Removing Repositories
+To **add** a new software repository for zypper, use the `addrepo` operator followed by the repository
+URL and repository name, like below:
+```editorconfig
+# zypper addrepo http://packman.inode.at/suse/openSUSE_Leap_15.1/ packman
+Adding repository 'packman' ........................................[done]
+Repository 'packman' successfully added
+
+URI         : http://packman.inode.at/suse/openSUSE_Leap_15.1/
+Enabled     : Yes
+GPG Check   : Yes
+Autorefresh : No
+Priority    : 99 (default priority)
+
+Repository priorities are without effect. All enabled repositories share the same priority.
+```
+While adding a repository, you can enable auto-updates with the `-f` parameter. Added repositories are **enabled** 
+by default, but you can add and **disable** a repository at the same time by using the `-d` parameter.
+
+To `remove` a repository, use the removerepo operator, followed by the repository name (Alias). 
+```editorconfig
+# zypper removerepo packman
+Removing repository 'packman' ......................................[done]
+Repository 'packman' has been removed.
+```
 
 ## Summary
  ### rpm
@@ -314,6 +558,36 @@ and metadata (yum clean metadata) to delete associated metadata.
 
 
  ### dnf
-| Command                          | Description                                                                 |
-|----------------------------------|-----------------------------------------------------------------------------|
-| `yum search `                    | Searching for Packages                                                      ||
+| Command                             | Description                                                     |
+|-------------------------------------|-----------------------------------------------------------------|
+| `dnf search `                       | Searching for Packages                                          |
+| `dnf info `                         | Getting information about a package                             |
+| `dnf install `                      | Installing packages                                             |
+| `dnf remove `                       | Removing packages                                               |
+| `dnf upgrade  `                     | Upgrading packages                                              |
+| `dnf provides  `                    | Finding out which package provides a specific file              |
+| `dnf list --installed  `            | Getting a list of all the packages installed in the system      |
+| `dnf repoquery -l `                 | Listing the contents of a package                               |
+| `dnf dnf repolist -l `              | To get a list of all available repositories                     |
+| `dnf config-manager --add_repo `    | To add a repository                                             |
+| `dnf config-manager --set-enabled ` | To enable a repository                                          |
+
+
+ ### zypper
+| Command                  | Description                                                               |
+|--------------------------|---------------------------------------------------------------------------|
+| `zypper refresh `        | Updating the Package Index.                                               |
+| `zypper se `             | Searching for Packages.                                                   |
+| `zypper se -i `          | To obtain a list of all the installed packages.                           |
+| `zypper in `             | To install packages.                                                      |
+| `zypper rm unrar `       | To remove a package.                                                      |
+| `zypper rm unrar `       | To remove a package.                                                      |
+| `zypper se --provides `  | Finding Which Packages Contain a Specific File                            |
+| `zypper info `           | Getting Package Information                                               |
+| `zypper list `           | To see a list of all the repositories currently registered in your system |
+| ` zypper modifyrepo -e ` | To enable repositories currently registered in your system                |
+| ` zypper modifyrepo -d ` | To disable repositories currently registered in your system               |
+| ` zypper modifyrepo -f ` | To enable auto refresh capability on a per-repository basis               |
+| ` zypper modifyrepo -F ` | To disable auto refresh capability on a per-repository basis              |
+| ` zypper addrepo `       | To add a new software repository                                          |
+| ` zypper removerepo `    | To remove a new software repository                                       |
