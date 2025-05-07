@@ -568,7 +568,7 @@ Repository 'packman' has been removed.
 | `dnf provides  `                    | Finding out which package provides a specific file              |
 | `dnf list --installed  `            | Getting a list of all the packages installed in the system      |
 | `dnf repoquery -l `                 | Listing the contents of a package                               |
-| `dnf dnf repolist -l `              | To get a list of all available repositories                     |
+| `dnf repolist all `                 | To get a list of all available repositories                     |
 | `dnf config-manager --add_repo `    | To add a repository                                             |
 | `dnf config-manager --set-enabled ` | To enable a repository                                          |
 
