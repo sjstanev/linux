@@ -581,7 +581,6 @@ Repository 'packman' has been removed.
 | `zypper se -i `          | To obtain a list of all the installed packages.                           |
 | `zypper in `             | To install packages.                                                      |
 | `zypper rm unrar `       | To remove a package.                                                      |
-| `zypper rm unrar `       | To remove a package.                                                      |
 | `zypper se --provides `  | Finding Which Packages Contain a Specific File                            |
 | `zypper info `           | Getting Package Information                                               |
 | `zypper list `           | To see a list of all the repositories currently registered in your system |
